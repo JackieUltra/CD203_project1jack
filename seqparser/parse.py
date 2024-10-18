@@ -76,7 +76,8 @@ class Parser:
 
             while True:
                 rec = self.get_record(f_obj)
-                # TODO: stop the loop
+                if rec is None:  # Stop the loop at the end of the file
+                    break
                 yield rec
 
     def _get_record(self, f_obj: io.TextIOWrapper) -> Union[Tuple[str, str], Tuple[str, str, str]]:
