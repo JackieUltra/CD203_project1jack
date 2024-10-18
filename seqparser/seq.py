@@ -1,5 +1,4 @@
 # DNA -> RNA Transcription
-# DNA -> RNA Transcription
 
 def transcribe(seq: str) -> str:
     """
