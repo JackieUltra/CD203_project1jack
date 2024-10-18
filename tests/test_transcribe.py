@@ -23,8 +23,7 @@ def test_freebie_transcribe_2():
         
 def test_transcribe():
     """
-    TODO: Write your unit test for the
-    transcribe function here.
+    TODO: Write your unit test for the transcribe function here.
     """
     pass
 
