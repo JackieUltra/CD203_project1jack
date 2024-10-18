@@ -68,6 +68,6 @@ def test_reverse_transcribe():
     # Test Case 7: Long sequence
     assert reverse_transcribe("ATCG" * 1000) == "GCUA" * 1000, "TC7 fail, long sequence failed"
     # Test Case 8: Repetitive sequence
-    assert reverse_transcribe("AAAA") == "UUUU", "TC8 fail, repetitive sequence failed"
+    assert reverse_transcribe("AAAA") == "AAAA", "TC8 fail, repetitive sequence failed"
     # yay!
     pass
