@@ -92,12 +92,29 @@ class Parser:
 
 class FastaParser(Parser):
     """
-    Fasta Specific Parsing.
+    Fasta Specific Parsing
     """
     def _get_record(self, f_obj: io.TextIOWrapper) -> Tuple[str, str]:
         """
-        TODO: returns the next fasta record as a 2-tuple of (header, sequence)
+        Returns the next fasta record as a 2-tuple of (header, sequence)
         """
+        header, sequence = None, []
+
+        for line in f_obj:
+            line = line.strip()  # Remove front/back whitespace
+            if line.startswith(">"):  # Indicate header line
+                if header:  # If a previous record, return it
+                    return header, ''.join(sequence)
+                
+                header = line  # Start a new record
+                sequence = []  # Clear sequence for the new record
+            else:
+                sequence.append(line)  # Add sequence line to the current record
+        
+        if header:  # Return the last record, end of file
+            return header, ''.join(sequence)
+        return None  # End of file 
+
 
 
 class FastqParser(Parser):
@@ -106,6 +123,15 @@ class FastqParser(Parser):
     """
     def _get_record(self, f_obj: io.TextIOWrapper) -> Tuple[str, str, str]:
         """
-        TODO: returns the next fastq record as a 3-tuple of (header, sequence, quality)
+        Returns the next fastq record as a 3-tuple of (header, sequence, quality)
         """
+        header = f_obj.readline().strip()  # Head line starts with @
+        if not header:
+            return None  # End of file
+        
+        sequence = f_obj.readline().strip()  # Seq line
+        f_obj.readline()  # Skip + line
+        quality = f_obj.readline().strip()  # Qual line
+        
+        return header, sequence, quality
 
