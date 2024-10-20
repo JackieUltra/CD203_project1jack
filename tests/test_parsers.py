@@ -23,17 +23,25 @@ def test_freebie_parser_2():
         
 def test_FastaParser():
     """
-    TODO: Write your unit test for your FastaParser
+    Write your unit test for your FastaParser
     class here. You should generate an instance of
     your FastaParser class and assert that it properly
     reads in the example Fasta File.
     """
-    expected_record_fa = [
-        ("seq0","TGATTGAATCTTTTGAGGGTCACGGCCCGGAAGCCAGAATTTCGGGGTCCTCTGTGGATATTAATCGAGCCCACACGGTGTGAGTTCAGCGGCCCCCGCA")
-        ("seq1","TCCGCCCGCTGTGCTGACGAGACTAGCAGGGAAATAAATAGAGGGTTTAGTTATACTCAGTAGGCAGTTCGATGGCTTATATCTAACTTCTTATTCCGAT")
-        ("seq2","TGTAGAGGCATTATTAGAGTTTCGCCACAACGGGGGCCTGCTGATCAAATCAGAATTCGTACAATCGGTTCGGGAGACACGGCTCTAAAGATACCGCTAG")
-      ]
-    pass
+    # List of tuples (header, sequence) in test.fa
+    expected_records_test_fa = [
+        (">seq0", "TGATTGAATCTTTTGAGGGTCACGGCCCGGAAGCCAGAATTTCGGGGTCCTCTGTGGATATTAATCGAGCCCACACGGTGTGAGTTCAGCGGCCCCCGCA"),
+        (">seq1", "TCCGCCCGCTGTGCTGACGAGACTAGCAGGGAAATAAATAGAGGGTTTAGTTATACTCAGTAGGCAGTTCGATGGCTTATATCTAACTTCTTATTCCGAT"),
+        (">seq2", "TGTAGAGGCATTATTAGAGTTTCGCCACAACGGGGGCCTGCTGATCAAATCAGAATTCGTACAATCGGTTCGGGAGACACGGCTCTAAAGATACCGCTAG")
+    ]
+    # variable for file
+    parser = FastaParser(filename="test.fa")
+    
+    # Collect the first 3 records
+    records = [next(parser) for _ in range(3)]
+    
+    # Do value check
+    assert records == expected_records_test_fa
 
 
 def test_FastqParser():
