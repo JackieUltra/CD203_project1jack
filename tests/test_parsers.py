@@ -55,8 +55,7 @@ def test_empty_fa():
     # Ensure no records are returned from empty file
     assert records == []
 
-    ### Should I make additional Unit Test / Is this essential
-    ### Should I make all my Unit tests within the single function test_FastaParser
+
 
 def test_FastqParser():
     """
