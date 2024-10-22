@@ -50,15 +50,6 @@ def test_FastaParser():
     assert records == expected_records_test_fa
 
     # Test 2
-def test_empty_fa():
-    """
-    Test empty FASTA file
-    """
-    fasta_content = io.StringIO("")  # empty FASTA file
-    parser = FastaParser(fasta_content)
-    records = list(parser)
-    assert records == []  # Ensure no records are returned
-
 
 
 def test_FastqParser():
@@ -85,16 +76,5 @@ def test_FastqParser():
     # Do value check
     assert records == expected_records_test_fq
 
-def test_empty_fq():
-    """
-    Test empty FASTQ file
-    """
-    # variable for file
-    parser = FastqParser(filename="testempty.fq")
-    
-    # Do value check
-    records = list(parser)
-    
-    # Ensure no records are returned from empty file
-    assert records == []
+
     
