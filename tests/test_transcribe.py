@@ -40,7 +40,7 @@ def test_transcribe():
         assert str(e) == "Input invalid character. Only A, T, C, G ", "TC5 fail, invalid characters should raise a ValueError"
     # Test Case 6: Long sequence
     assert transcribe("ATCG" * 1000) == "UAGC" * 1000, "TC6 fail, long sequence failed"
-    # Test Case 7: Repetitive sequence
+    # Test Case 7: Repetitive sequenc
     assert transcribe("AAAA") == "UUUU", "TC7 fail, repetitive sequence failed"
     # yay!
     pass
