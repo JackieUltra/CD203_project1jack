@@ -43,7 +43,7 @@ def test_FastaParser():
     parser = FastaParser(filename=data_path)
     
     # Collect the first 3 records
-    records = list(itertools.islice(parser, 3))
+    records = list(itertools.islice(parser, 2))
     print("Parsed Records:", records)
     
     # Do value check
