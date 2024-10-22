@@ -35,21 +35,20 @@ def test_FastaParser():
         (">seq1", "TCCGCCCGCTGTGCTGACGAGACTAGCAGGGAAATAAATAGAGGGTTTAGTTATACTCAGTAGGCAGTTCGATGGCTTATATCTAACTTCTTATTCCGAT"),
         (">seq2", "TGTAGAGGCATTATTAGAGTTTCGCCACAACGGGGGCCTGCTGATCAAATCAGAATTCGTACAATCGGTTCGGGAGACACGGCTCTAAAGATACCGCTAG")
     ]
-    # Variable for file
-    # Get the current directory where this test is located and navigate to the `data` folder
-    current_dir = os.path.dirname(__file__)  # This gets the directory of the current file
-    data_path = os.path.join(current_dir, '..', 'data', 'test.fa')  # Navigate to 'data/test.fa'
+    # Variable for file in an indivdauls local environment
+    current_dir = os.path.dirname(__file__)
+    data_path = os.path.join(current_dir, '..', 'data', 'test.fa') 
 
     # Instantiate FastaParser using the relative path
     parser = FastaParser(filename=data_path)
     
     # Collect the first 3 records
     records = list(itertools.islice(parser, 3))
+    print("Parsed Records:", records)
     
     # Do value check
     assert records == expected_records_test_fa
 
-    # Test 2
 
 
 def test_FastqParser():
