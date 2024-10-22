@@ -7,4 +7,3 @@ name = "seqparser"
 authors = [{name = "Jackson Sands", email = "Jbsands78@gmail.com"}]
 readme = "README.md"
 dynamic = ["version", "description"]
-dependencies = [python=3.9, numpy]
