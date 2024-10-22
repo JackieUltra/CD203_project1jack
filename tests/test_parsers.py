@@ -1,5 +1,6 @@
 # write tests for parsers
 import io
+import os
 
 from seqparser import (
         FastaParser,
@@ -34,7 +35,12 @@ def test_FastaParser():
         (">seq2", "TGTAGAGGCATTATTAGAGTTTCGCCACAACGGGGGCCTGCTGATCAAATCAGAATTCGTACAATCGGTTCGGGAGACACGGCTCTAAAGATACCGCTAG")
     ]
     # Variable for file
-    parser = FastaParser(filename="tests/test.fa")
+    # Get the current directory where this test is located and navigate to the `data` folder
+    current_dir = os.path.dirname(__file__)  # This gets the directory of the current file
+    data_path = os.path.join(current_dir, '..', 'data', 'test.fa')  # Navigate to 'data/test.fa'
+
+    # Instantiate FastaParser using the relative path
+    parser = FastaParser(filename=data_path)
     
     # Collect the first 3 records
     records = [record for _, record in zip(range(3), parser)]
