@@ -1,6 +1,7 @@
 # write tests for parsers
 import io
 import os
+import itertools
 
 from seqparser import (
         FastaParser,
@@ -43,7 +44,7 @@ def test_FastaParser():
     parser = FastaParser(filename=data_path)
     
     # Collect the first 3 records
-    records = [record for _, record in zip(range(3), parser)]
+    records = list(itertools.islice(parser, 3))
     
     # Do value check
     assert records == expected_records_test_fa
