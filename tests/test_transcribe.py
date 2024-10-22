@@ -37,7 +37,7 @@ def test_transcribe():
     try:
         transcribe("XATCG")
     except ValueError as e:
-        assert str(e) == "Input invalid character. Only A, T, C, G ", "TC5 fail, invalid characters should raise a ValueError"
+        assert str(e) == "Input invalid character. Only A, T, C, G", "TC5 fail, invalid characters should raise a ValueError"
     # Test Case 6: Long sequence
     assert transcribe("ATCG" * 1000) == "UAGC" * 1000, "TC6 fail, long sequence failed"
     # Test Case 7: Repetitive sequenc
