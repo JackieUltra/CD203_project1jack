@@ -37,7 +37,7 @@ def test_FastaParser():
     parser = FastaParser(filename="test.fa")
     
     # Collect the first 3 records
-    records = [next(parser) for _ in range(3)]
+    records = [record for _, record in zip(range(3), parser)]
     
     # Do value check
     assert records == expected_records_test_fa
