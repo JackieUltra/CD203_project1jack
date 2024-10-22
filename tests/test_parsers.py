@@ -1,4 +1,5 @@
 # write tests for parsers
+import io
 
 from seqparser import (
         FastaParser,
@@ -46,14 +47,10 @@ def test_empty_fa():
     """
     Test empty FASTA file
     """
-    # Variable for file
-    parser = FastaParser(filename="testempty.fa")
-    
-    # Do value check
+    fasta_content = io.StringIO("")  # empty FASTA file
+    parser = FastaParser(fasta_content)
     records = list(parser)
-    
-    # Ensure no records are returned from empty file
-    assert records == []
+    assert records == []  # Ensure no records are returned
 
 
 
