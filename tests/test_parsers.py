@@ -34,7 +34,7 @@ def test_FastaParser():
         (">seq2", "TGTAGAGGCATTATTAGAGTTTCGCCACAACGGGGGCCTGCTGATCAAATCAGAATTCGTACAATCGGTTCGGGAGACACGGCTCTAAAGATACCGCTAG")
     ]
     # Variable for file
-    parser = FastaParser(filename="test.fa")
+    parser = FastaParser(filename="tests/test.fa")
     
     # Collect the first 3 records
     records = [record for _, record in zip(range(3), parser)]
