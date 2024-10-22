@@ -19,6 +19,7 @@ def reverse_transcribe(seq: str) -> str:
     """
     Transcribes DNA to RNA then reverses the strand
     """
+    seq = seq.upper()
     # Invalid check
     if any(base not in "ATCG" for base in seq.upper()):
         raise ValueError("Input invalid character. Only A, T, C, G")
