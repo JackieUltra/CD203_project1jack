@@ -1,4 +1,5 @@
 # write tests for parsers
+import io
 
 from seqparser import (
         FastaParser,
@@ -25,8 +26,35 @@ def test_FastaParser():
     """
     Unit test for FastaParser class.
     """
-    import os
-    import itertools
+    fasta_content = """>seq0
+TGATTGAATCTTTTGAGGGTCACGGCCCGGAAGCCAGAATTTCGGGGTCCTCTGTGGAT
+ATTAATCGAGCCCACACGGTGTGAGTTCAGCGGCCCCCGCA
+>seq1
+TCCGCCCGCTGTGCTGACGAGACTAGCAGGGAAATAAATAGAGGGTTTAGTTATACTCA
+GTAGGCAGTTCGATGGCTTATATCTAACTTCTTATTCCGAT
+>seq2
+TGTAGAGGCATTATTAGAGTTTCGCCACAACGGGGGCCTGCTGATCAAATCAGAATTCG
+TACAATCGGTTCGGGAGACACGGCTCTAAAGATACCGCTAG
+"""
+
+    # Expected records (header, sequence)
+    expected_records_test_fa = [
+        (">seq0", "TGATTGAATCTTTTGAGGGTCACGGCCCGGAAGCCAGAATTTCGGGGTCCTCTGTGGATATTAATCGAGCCCACACGGTGTGAGTTCAGCGGCCCCCGCA"),
+        (">seq1", "TCCGCCCGCTGTGCTGACGAGACTAGCAGGGAAATAAATAGAGGGTTTAGTTATACTCAGTAGGCAGTTCGATGGCTTATATCTAACTTCTTATTCCGAT"),
+        (">seq2", "TGTAGAGGCATTATTAGAGTTTCGCCACAACGGGGGCCTGCTGATCAAATCAGAATTCGTACAATCGGTTCGGGAGACACGGCTCTAAAGATACCGCTAG")
+    ]
+
+    # Use StringIO to simulate the file object
+    fasta_file = io.StringIO(fasta_content)
+
+    # Create a FastaParser object using the StringIO object as input
+    parser = FastaParser(fasta_file)
+
+    # Iterate over parser and compare with expected records
+    for i, record in enumerate(parser):
+        assert record == expected_records_test_fa[i]
+
+    fasta_file.close()
     
     # Expected records (header, sequence) in test.fa
     expected_records_test_fa = [

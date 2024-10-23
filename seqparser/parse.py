@@ -98,6 +98,28 @@ class FastaParser(Parser):
         """
         Returns the next fasta record as a 2-tuple of (header, sequence)
         """
+        header = None
+        sequence = []
+
+        for line in f_obj:
+            line = line.strip()
+
+            if line.startswith(">"):
+                # 
+                if header:
+                    return (header, "".join(sequence))
+
+                # Start a new record
+                header = line
+                sequence = []
+            else:
+                sequence.append(line)
+
+        # After the loop, return the last record if it exists
+        if header:
+            return (header, "".join(sequence))
+        else:
+            return None  # No more records
   
 
 
