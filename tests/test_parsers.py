@@ -42,13 +42,9 @@ def test_FastaParser():
     # Instantiate FastaParser using the relative path
     parser = FastaParser(filename=data_path)
     
-    # Collect the first 3 records
-    records = list(itertools.islice(parser, 3))
-    print("Parsed Records:", records)
-    
-    # Do value check
-    assert records == expected_records_test_fa
-
+    # Iterate over the parser and assert records match expected
+    for expected, actual in itertools.zip_longest(expected_records_test_fa, parser):
+        assert expected == actual
 
 
 def test_FastqParser():

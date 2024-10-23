@@ -99,22 +99,16 @@ class FastaParser(Parser):
         """
         Returns the next fasta record as a 2-tuple of (header, sequence)
         """
-        header, sequence = None, []
-
-        for line in f_obj:
-            line = line.strip()  # Remove front/back whitespace
-            if line.startswith(">"):  # Indicate header line
-                if header:  # If a previous record, return it
-                    return header, ''.join(sequence)
-                
-                header = line  # Start a new record
-                sequence = []  # Clear sequence for the new record
-            else:
-                sequence.append(line)  # Add sequence line to the current record
-        
-        if header:  # Return the last record, end of file
-            return header, ''.join(sequence)
-        return None  # End of file 
+        header = f_obj.readline().strip()
+        if not header:
+            return None
+        sequence = []
+        while True:
+            line = f_obj.readline().strip()
+            if not line or line.startswith('>'):
+                break
+            sequence.append(line)
+        return header, ''.join(sequence)
 
 
 
