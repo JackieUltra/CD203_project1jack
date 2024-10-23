@@ -90,7 +90,10 @@ class Parser:
                 It is expected to be overridden by `FastaParser` and `FastqParser`
                 """)
 
-
+class FastaParser(Parser):
+    """
+    Fasta Specific Parsing 
+    """
     def _get_record(self, f_obj: io.TextIOWrapper) -> Tuple[str, str]:
         """
         Returns the next fasta record as a 2-tuple of (header, sequence)
