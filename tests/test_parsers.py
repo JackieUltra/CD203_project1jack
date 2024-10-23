@@ -1,5 +1,7 @@
 # write tests for parsers
 import io
+import tempfile
+import os
 
 from seqparser import (
         FastaParser,
@@ -26,6 +28,7 @@ def test_FastaParser():
     """
     Unit test for FastaParser class.
     """
+    # Simulate the content of a small FASTA file
     fasta_content = """>seq0
 TGATTGAATCTTTTGAGGGTCACGGCCCGGAAGCCAGAATTTCGGGGTCCTCTGTGGAT
 ATTAATCGAGCCCACACGGTGTGAGTTCAGCGGCCCCCGCA
@@ -44,24 +47,20 @@ TACAATCGGTTCGGGAGACACGGCTCTAAAGATACCGCTAG
         (">seq2", "TGTAGAGGCATTATTAGAGTTTCGCCACAACGGGGGCCTGCTGATCAAATCAGAATTCGTACAATCGGTTCGGGAGACACGGCTCTAAAGATACCGCTAG")
     ]
 
-    # Use StringIO to simulate the file object
-    fasta_file = io.StringIO(fasta_content)
+    # Create a temporary file with the content of the fasta_content
+    with tempfile.NamedTemporaryFile(mode='w+', delete=False) as tmp_file:
+        tmp_file.write(fasta_content)
+        tmp_file.flush()  # Ensure all data is written to the file
+        
+        # Use the temporary file name to create a FastaParser object
+        parser = FastaParser(tmp_file.name)
 
-    # Create a FastaParser object using the StringIO object as input
-    parser = FastaParser(fasta_file)
+        # Iterate over parser and compare with expected records
+        for i, record in enumerate(parser):
+            assert record == expected_records_test_fa[i]
 
-    # Iterate over parser and compare with expected records
-    for i, record in enumerate(parser):
-        assert record == expected_records_test_fa[i]
-
-    fasta_file.close()
-    
-    # Expected records (header, sequence) in test.fa
-    expected_records_test_fa = [
-        (">seq0", "TGATTGAATCTTTTGAGGGTCACGGCCCGGAAGCCAGAATTTCGGGGTCCTCTGTGGATATTAATCGAGCCCACACGGTGTGAGTTCAGCGGCCCCCGCA"),
-        (">seq1", "TCCGCCCGCTGTGCTGACGAGACTAGCAGGGAAATAAATAGAGGGTTTAGTTATACTCAGTAGGCAGTTCGATGGCTTATATCTAACTTCTTATTCCGAT"),
-        (">seq2", "TGTAGAGGCATTATTAGAGTTTCGCCACAACGGGGGCCTGCTGATCAAATCAGAATTCGTACAATCGGTTCGGGAGACACGGCTCTAAAGATACCGCTAG")
-    ]
+    # Clean up the temporary file
+    os.remove(tmp_file.name)
 
 
 def test_FastqParser():
