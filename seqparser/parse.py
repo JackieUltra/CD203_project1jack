@@ -95,22 +95,7 @@ class Parser:
         """
         Returns the next fasta record as a 2-tuple of (header, sequence)
         """
-        header = f_obj.readline().strip()
-        if not header:
-            return None  # End of file
-        if not header.startswith(">"):
-            raise ValueError(f"Invalid FASTA header: {header}")
-        
-        sequence = []
-        while True:
-            line = f_obj.readline().strip()
-            if not line or line.startswith('>'):
-                # Move file pointer back to the beginning of the header line for the next record
-                f_obj.seek(f_obj.tell() - len(line) - 1)
-                break
-            sequence.append(line)
-        
-        return header, ''.join(sequence)
+  
 
 
 class FastqParser(Parser):
@@ -121,13 +106,4 @@ class FastqParser(Parser):
         """
         Returns the next fastq record as a 3-tuple of (header, sequence, quality)
         """
-        header = f_obj.readline().strip()  # Head line starts with @
-        if not header:
-            return None  # End of file
-        
-        sequence = f_obj.readline().strip()  # Seq line
-        f_obj.readline()  # Skip + line
-        quality = f_obj.readline().strip()  # Qual line
-        
-        return header, sequence, quality
 

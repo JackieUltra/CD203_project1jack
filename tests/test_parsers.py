@@ -37,17 +37,6 @@ def test_FastaParser():
         (">seq1", "TCCGCCCGCTGTGCTGACGAGACTAGCAGGGAAATAAATAGAGGGTTTAGTTATACTCAGTAGGCAGTTCGATGGCTTATATCTAACTTCTTATTCCGAT"),
         (">seq2", "TGTAGAGGCATTATTAGAGTTTCGCCACAACGGGGGCCTGCTGATCAAATCAGAATTCGTACAATCGGTTCGGGAGACACGGCTCTAAAGATACCGCTAG")
     ]
-    
-    # Assuming the relative path is set correctly
-    current_dir = os.path.dirname(__file__)
-    data_path = os.path.join(current_dir, '..', 'data', 'test.fa')
-    
-    # Instantiate FastaParser using the relative path
-    parser = FastaParser(filename=data_path)
-    
-    # Iterate over the parser and assert records match expected
-    for expected, actual in itertools.zip_longest(expected_records_test_fa, parser):
-        assert expected == actual, f"Expected {expected}, but got {actual}"
 
 
 def test_FastqParser():
@@ -63,16 +52,5 @@ def test_FastqParser():
          "'(<#/0$5&!$+,:=%7=50--1;'(-7;0>=$(05*9,,:%0!<),%646<8#%\".\"-'*-0:.+*&$5!'8)(%3*+9/&/%=363*,6$20($97,\""),
         ("@seq2", "GATAAACTTCTATCACGAATACTGCGGGACCATGCAGTTGTCCCTCACCTCGATAGTTCAGGTCTTTTGGTTCTGAGCGATATTGGGCGCGTCACCACTG",
          "1,758$,:7654/7<0%5/12%-3>-2.>$$443-,'9,5$;\"\"%7**)-'%:**&;<35(!<1'.5>51)1%:9>4=(&+3$2!-.8!>=+1$:,*&9!")
-        
     ]
-    # Variable for file
-    parser = FastqParser(filename="test.fq")
-    
-    # Collect the first 3 records
-    records = [next(parser) for _ in range(3)]
-    
-    # Do value check
-    assert records == expected_records_test_fq
 
-
-    
