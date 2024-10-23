@@ -26,25 +26,28 @@ def test_freebie_parser_2():
     # Test 1  
 def test_FastaParser():
     """
-    Write your unit test for your FastaParser class here. 
-    You should generate an instance of your FastaParser class and assert that it properly reads in the example Fasta File.
+    Unit test for FastaParser class.
     """
-    # List of tuples (header, sequence) in test.fa
+    import os
+    import itertools
+    
+    # Expected records (header, sequence) in test.fa
     expected_records_test_fa = [
         (">seq0", "TGATTGAATCTTTTGAGGGTCACGGCCCGGAAGCCAGAATTTCGGGGTCCTCTGTGGATATTAATCGAGCCCACACGGTGTGAGTTCAGCGGCCCCCGCA"),
         (">seq1", "TCCGCCCGCTGTGCTGACGAGACTAGCAGGGAAATAAATAGAGGGTTTAGTTATACTCAGTAGGCAGTTCGATGGCTTATATCTAACTTCTTATTCCGAT"),
         (">seq2", "TGTAGAGGCATTATTAGAGTTTCGCCACAACGGGGGCCTGCTGATCAAATCAGAATTCGTACAATCGGTTCGGGAGACACGGCTCTAAAGATACCGCTAG")
     ]
-    # Variable for file in an indivdauls local environment
+    
+    # Assuming the relative path is set correctly
     current_dir = os.path.dirname(__file__)
-    data_path = os.path.join(current_dir, '..', 'data', 'test.fa') 
-
+    data_path = os.path.join(current_dir, '..', 'data', 'test.fa')
+    
     # Instantiate FastaParser using the relative path
     parser = FastaParser(filename=data_path)
     
     # Iterate over the parser and assert records match expected
     for expected, actual in itertools.zip_longest(expected_records_test_fa, parser):
-        assert expected == actual
+        assert expected == actual, f"Expected {expected}, but got {actual}"
 
 
 def test_FastqParser():

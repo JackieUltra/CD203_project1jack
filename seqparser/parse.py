@@ -91,25 +91,26 @@ class Parser:
                 """)
 
 
-class FastaParser(Parser):
-    """
-    Fasta Specific Parsing
-    """
     def _get_record(self, f_obj: io.TextIOWrapper) -> Tuple[str, str]:
         """
         Returns the next fasta record as a 2-tuple of (header, sequence)
         """
         header = f_obj.readline().strip()
         if not header:
-            return None
+            return None  # End of file
+        if not header.startswith(">"):
+            raise ValueError(f"Invalid FASTA header: {header}")
+        
         sequence = []
         while True:
             line = f_obj.readline().strip()
             if not line or line.startswith('>'):
+                # Move file pointer back to the beginning of the header line for the next record
+                f_obj.seek(f_obj.tell() - len(line) - 1)
                 break
             sequence.append(line)
+        
         return header, ''.join(sequence)
-
 
 
 class FastqParser(Parser):
