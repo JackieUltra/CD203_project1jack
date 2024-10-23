@@ -1,7 +1,4 @@
 # write tests for parsers
-import io
-import os
-import itertools
 
 from seqparser import (
         FastaParser,
