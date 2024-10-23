@@ -105,21 +105,23 @@ class FastaParser(Parser):
             line = line.strip()
 
             if line.startswith(">"):
-                # 
+                # If we already have a record, return it when the next header is found
                 if header:
                     return (header, "".join(sequence))
 
                 # Start a new record
                 header = line
                 sequence = []
+
             else:
+                # Add to the sequence (even if multi-line)
                 sequence.append(line)
 
-        # After the loop, return the last record if it exists
+        # Return the last record if there is one
         if header:
             return (header, "".join(sequence))
-        else:
-            return None  # No more records
+
+        return None  # No more records
   
 
 
