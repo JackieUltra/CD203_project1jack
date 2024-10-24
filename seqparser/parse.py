@@ -92,37 +92,28 @@ class Parser:
 
 class FastaParser(Parser):
     """
-    Fasta Specific Parsing 
+    Fasta Specific Parsing
     """
-    def _get_record(self, f_obj: io.TextIOWrapper) -> Tuple[str, str]:
+    
+    def _get_record(self, f_obj: io.TextIOWrapper) -> Union[Tuple[str, str], None]:
         """
-        Returns the next fasta record as a 2-tuple of (header, sequence)
+        Returns the next fasta record as a 2-tuple of (head, seq)
         """
-        header = None
-        sequence = []
+        # create head str
+        head = f_obj.readline().rstrip()
+        # End of file should not be included as empty tuple
+        if not head:  
+            return None
+        # create seq str
+        seq = f_obj.readline().rstrip()
 
-        for line in f_obj:
-            line = line.strip()
-
-            if line.startswith(">"):
-                # If we already have a record, return it when the next header is found
-                if header:
-                    return (header, "".join(sequence))
-
-                # Start a new record
-                header = line
-                sequence = []
-
-            else:
-                # Add to the sequence (even if multi-line)
-                sequence.append(line)
-
-        # Return the last record if there is one
-        if header:
-            return (header, "".join(sequence))
-
-        return None  # No more records
-  
+        # file format error
+        # find >seq
+        if '>seq' not in head:
+            raise ValueError("expect >seq in head")
+            
+        # return the tuple
+        return (head, seq)
 
 
 class FastqParser(Parser):
@@ -133,4 +124,24 @@ class FastqParser(Parser):
         """
         Returns the next fastq record as a 3-tuple of (header, sequence, quality)
         """
+        # create head str
+        head = f_obj.readline().rstrip()
+        # End of file should not be included as empty tuple
+        if not head: 
+            return None
+        # create seq str
+        seq = f_obj.readline().rstrip()
+        # file format error
+        # find +
+        if not f_obj.readline().startswith('+'):
+            raise ValueError("expect + between seq and qual")
+        # create qual str
+        qual = f_obj.readline().rstrip()
+ 
+        # file format error
+        # find @seq
+        if '@seq' not in head and head != "":
+            return ValueError("expect @seq in head")
 
+        # return the tuple
+        return (head, seq, qual)
