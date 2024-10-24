@@ -47,7 +47,6 @@ def test_FastaParser():
         if '>seq' not in record[0]:
             # If the head does not contain >seq fail
             assert False
-
         # Ensure valid nucleotides A,C,G,T in the seq part of tuple
         for nucleotide in record[1]:
             if nucleotide not in 'ACGT':
