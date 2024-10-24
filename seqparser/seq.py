@@ -1,5 +1,6 @@
 # DNA -> RNA Transcription
 
+
 def transcribe(seq: str) -> str:
     """
     Transcribes DNA to RNA by generating the complement sequence with T -> U replacement
@@ -13,7 +14,6 @@ def transcribe(seq: str) -> str:
     rna_seq = ''.join(complement[base] for base in seq.upper())
     
     return rna_seq
-
 
 def reverse_transcribe(seq: str) -> str:
     """

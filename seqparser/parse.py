@@ -17,7 +17,6 @@ class Parser:
         """
         Returns a sequencing record that will either be a tuple of two strings (header, sequence)
         or a tuple of three strings (header, sequence, quality). 
-
         """
         return self._get_record(f_obj)
 
@@ -49,7 +48,6 @@ class FastaParser(Parser):
     """
     Fasta Specific Parsing
     """
-    
     def _get_record(self, f_obj: io.TextIOWrapper) -> Union[Tuple[str, str], None]:
         """
         Returns the next fasta record as a 2-tuple of (head, seq)
@@ -64,7 +62,7 @@ class FastaParser(Parser):
 
         # file format error
         # find >seq
-        if '>seq' not in head:
+        if ">seq" not in head:
             raise ValueError("expect >seq in head")
             
         # return the tuple
@@ -95,7 +93,7 @@ class FastqParser(Parser):
  
         # file format error
         # find @seq
-        if '@seq' not in head and head != "":
+        if "@seq" not in head and head != "":
             return ValueError("expect @seq in head")
 
         # return the tuple
