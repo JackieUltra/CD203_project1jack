@@ -22,11 +22,11 @@ def test_freebie_parser_2():
 
 def test_FastqParser():
     
-    fq_parser = FastqParser('data/test.fq')
+    fq_parser = FastqParser("data/test.fq")
     # Loop through all tuples
     for record in fq_parser:
         # Check if the head '@seq' in the head of tuple
-        if '@seq' not in record[0]:
+        if "@seq" not in record[0]:
             # If the head does not contain @seq fail
             assert False
         # Ensure valid nucleotides A,C,G,T in the seq part of tuple
@@ -40,11 +40,11 @@ def test_FastqParser():
 
 def test_FastaParser():
     
-    fa_parser = FastaParser('data/test.fa')
+    fa_parser = FastaParser("data/test.fa")
     # Loop through all tuples
     for record in fa_parser:
         # Check if the head '>seq' in the head of tuple
-        if '>seq' not in record[0]:
+        if ">seq" not in record[0]:
             # If the head does not contain >seq fail
             assert False
         # Ensure valid nucleotides A,C,G,T in the seq part of tuple
