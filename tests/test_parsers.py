@@ -31,7 +31,7 @@ def test_FastqParser():
             assert False
         # Ensure valid nucleotides A,C,G,T in the seq part of tuple
         for nucleotide in record[1]:
-            if nucleotide not in 'ACGT':
+            if nucleotide not in "ACGT":
                 # Invalid characters found
                 assert False
     # All g homie       
@@ -49,7 +49,7 @@ def test_FastaParser():
             assert False
         # Ensure valid nucleotides A,C,G,T in the seq part of tuple
         for nucleotide in record[1]:
-            if nucleotide not in 'ACGT':
+            if nucleotide not in "ACGT":
                 # Invalid characters found
                 assert False
     # All g homie
